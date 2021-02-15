@@ -6,7 +6,7 @@ module Api
       include Api::Version2
       include ForemanWebhooks::Controller::Parameters::Webhook
 
-      before_action :find_resource, only: %i[show update destroy]
+      before_action :find_resource, only: %i[show destroy]
 
       api :GET, '/webhooks/', N_('List Webhooks')
       param_group :search_and_pagination, ::Api::V2::BaseController
@@ -49,6 +49,7 @@ module Api
       param :id, :identifier, required: true
       param_group :webhook, as: :update
       def update
+        @webhook = Webhook.find(params[:id])
         process_response @webhook.update(webhook_params)
       end
 
@@ -56,6 +57,11 @@ module Api
       param :id, :identifier, required: true
       def destroy
         process_response @webhook.destroy
+      end
+
+      api :GET, '/webhooks/events', N_('List available events for subscription')
+      def events
+        render json: Webhook.available_events.sort.map { |e| e.delete_suffix(Webhook::EVENT_POSTFIX) }.to_json
       end
     end
   end

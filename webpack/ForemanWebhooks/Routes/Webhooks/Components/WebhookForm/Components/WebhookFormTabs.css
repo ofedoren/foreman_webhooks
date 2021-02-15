@@ -1,0 +1,8 @@
+.webhook-form-tab-content {
+  padding-top: 2em;
+  padding-left: 2em;
+}
+
+.webhook-form-tab:focus {
+  outline: none;
+}

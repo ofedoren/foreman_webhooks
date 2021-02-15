@@ -7,9 +7,10 @@ import {
 import WrappedWebhooksTable from '../index';
 
 const props = {
-  fetchAndPush: () => {},
-  onDeleteClick: () => {},
-  setToDelete: () => {},
+  fetchAndPush: jest.fn(),
+  onDeleteClick: jest.fn(),
+  setToDelete: jest.fn(),
+  setToEdit: jest.fn(),
   itemCount: 0,
   canCreate: true,
 };
